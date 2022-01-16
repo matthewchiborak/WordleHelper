@@ -13,7 +13,7 @@ public class WordleHelperView extends JFrame implements ActionListener {
 
 	WordleHelperView(WordFinderProcessor processor) {
 		setTitle("Wordle Helper");
-		setBounds(300, 90, 900, 600);
+		setBounds(300, 90, 900, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         
@@ -55,9 +55,13 @@ public class WordleHelperView extends JFrame implements ActionListener {
 		blackBox.setLocation(420, 50);
 		c.add(blackBox);
 		
+		posBlackBox = new ConditionalPositionTextBox();
+		posBlackBox.setLocation(420, 85);
+		c.add(posBlackBox);
+		
 		optionsBox = new JTextArea();
-		optionsBox.setSize(800, 450);
-		optionsBox.setLocation(50, 80);
+		optionsBox.setSize(800, 500);
+		optionsBox.setLocation(50, 120);
 		optionsBox.setLineWrap(true);
 		c.add(optionsBox);
 	}
@@ -73,21 +77,32 @@ public class WordleHelperView extends JFrame implements ActionListener {
 	private JTextArea optionsBox;
 	private ConditionTextBox whiteBox;
 	private ConditionTextBox blackBox;
+	private ConditionalPositionTextBox posBlackBox;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-		optionsBox.setText(
-				processor.getResults(
-					letter1.getLetter(), 
-					letter2.getLetter(), 
-					letter3.getLetter(), 
-					letter4.getLetter(), 
-					letter5.getLetter(),
-					whiteBox.getList(),
-					blackBox.getList()
-					)
-				);
+			
+			posBlackBox.process();
+			
+			processor.setBlackLists(
+					blackBox.getList(), 
+					posBlackBox.getList(0),
+					posBlackBox.getList(1),
+					posBlackBox.getList(2),
+					posBlackBox.getList(3),
+					posBlackBox.getList(4));
+		
+			optionsBox.setText(
+					processor.getResults(
+						letter1.getLetter(), 
+						letter2.getLetter(), 
+						letter3.getLetter(), 
+						letter4.getLetter(), 
+						letter5.getLetter(),
+						whiteBox.getList()
+						)
+					);
 		}catch(Exception e1) {
 			System.out.println(e1.getMessage());
 		}
