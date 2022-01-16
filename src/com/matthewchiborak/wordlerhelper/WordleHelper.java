@@ -7,7 +7,7 @@ public class WordleHelper {
 	public static void main(String[] args) {
 		
 		DictionaryReader dicReader = new DictionaryReader();
-		HashSet<String> dictionary = dicReader.GetDictionary("D:\\eclipse-workspace\\WordleHelper\\res\\FiveLetterWords2.txt");
+		HashSet<String> dictionary = dicReader.GetDictionary("WordList.dic");
 				
 		WordFinderProcessor processor = new WordFinderProcessor(dictionary);
 		
