@@ -11,12 +11,14 @@ public class WordFinderProcessor {
 		this.dictionary = dictionary;
 	}
 	
-	String getResults(char l1, char l2, char l3, char l4, char l5){
+	String getResults(char l1, char l2, char l3, char l4, char l5, List<Character> whiteList, List<Character> blacklist){
+		this.blackList = blacklist;
+		
 		String result = "";
 		
 		//Don't want to print the whole dictionary
-		if(l1 == ' ' && l2 == ' ' && l3 == ' ' && l4 == ' ' && l5 == ' ')
-			return "Please Enter Letter Values";
+		/*if(l1 == ' ' && l2 == ' ' && l3 == ' ' && l4 == ' ' && l5 == ' ')
+			return "Please Enter Letter Values";*/
 		
 		List<String> wordsToTry = createWordsToTry(
 				Character.toLowerCase(l1),
@@ -30,7 +32,26 @@ public class WordFinderProcessor {
 		while(wordIter.hasNext()) {
 			String focusWord = wordIter.next();
 			if(dictionary.contains(focusWord))
-				result += focusWord + ", ";
+			{
+				if(whiteList.size() == 0) {
+					result += focusWord + ", ";
+					continue;
+				}
+				
+				boolean missingALetter = false;
+				Iterator<Character> whiteIter = whiteList.iterator();
+				while(whiteIter.hasNext()) 
+				{
+					if(!focusWord.contains(String.valueOf(whiteIter.next())))
+					{
+						missingALetter = true;
+					}
+				}
+				if(!missingALetter) {
+					result += focusWord + ", ";
+					continue;
+				}
+			}
 		}
 		return result;
 	}
@@ -49,7 +70,8 @@ public class WordFinderProcessor {
 			while(iter.hasNext()) {
 				String focusWord = iter.next();
 				for(int i = 97; i < 123; ++i) {
-					wordsToTry.add(String.valueOf((char)i) + focusWord);
+					if(!this.blackList.contains((char)i))
+						wordsToTry.add(String.valueOf((char)i) + focusWord);
 				}
 			}
 		}
@@ -71,7 +93,8 @@ public class WordFinderProcessor {
 			while(iter.hasNext()) {
 				String focusWord = iter.next();
 				for(int i = 97; i < 123; ++i) {
-					wordsToTry.add(String.valueOf((char)i) + focusWord);
+					if(!this.blackList.contains((char)i))
+						wordsToTry.add(String.valueOf((char)i) + focusWord);
 				}
 			}
 		}
@@ -93,7 +116,8 @@ public class WordFinderProcessor {
 			while(iter.hasNext()) {
 				String focusWord = iter.next();
 				for(int i = 97; i < 123; ++i) {
-					wordsToTry.add(String.valueOf((char)i) + focusWord);
+					if(!this.blackList.contains((char)i))
+						wordsToTry.add(String.valueOf((char)i) + focusWord);
 				}
 			}
 		}
@@ -115,7 +139,8 @@ public class WordFinderProcessor {
 			while(iter.hasNext()) {
 				String focusWord = iter.next();
 				for(int i = 97; i < 123; ++i) {
-					wordsToTry.add(String.valueOf((char)i) + focusWord);
+					if(!this.blackList.contains((char)i))
+						wordsToTry.add(String.valueOf((char)i) + focusWord);
 				}
 			}
 		}
@@ -131,11 +156,13 @@ public class WordFinderProcessor {
 			wordsToTry.add(String.valueOf(l5));
 		}else {
 			for(int i = 97; i < 123; ++i) {
-				wordsToTry.add(String.valueOf((char)i));
+				if(!this.blackList.contains((char)i))
+					wordsToTry.add(String.valueOf((char)i));
 			}
 		}
 		return wordsToTry;
 	}
 	
 	private HashSet<String> dictionary;
+	List<Character> blackList;
 }

@@ -47,6 +47,14 @@ public class WordleHelperView extends JFrame implements ActionListener {
 		goButton.addActionListener(this);
 		c.add(goButton);
 		
+		whiteBox = new ConditionTextBox();
+		whiteBox.setLocation(420, 15);
+		c.add(whiteBox);
+		
+		blackBox = new ConditionTextBox();
+		blackBox.setLocation(420, 50);
+		c.add(blackBox);
+		
 		optionsBox = new JTextArea();
 		optionsBox.setSize(800, 450);
 		optionsBox.setLocation(50, 80);
@@ -63,17 +71,25 @@ public class WordleHelperView extends JFrame implements ActionListener {
 	private LetterBox letter5;
 	private JButton goButton;
 	private JTextArea optionsBox;
+	private ConditionTextBox whiteBox;
+	private ConditionTextBox blackBox;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		try {
 		optionsBox.setText(
 				processor.getResults(
 					letter1.getLetter(), 
 					letter2.getLetter(), 
 					letter3.getLetter(), 
 					letter4.getLetter(), 
-					letter5.getLetter()
+					letter5.getLetter(),
+					whiteBox.getList(),
+					blackBox.getList()
 					)
 				);
+		}catch(Exception e1) {
+			System.out.println(e1.getMessage());
+		}
 	}
 }
