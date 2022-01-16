@@ -21,10 +21,11 @@ public class ConditionTextBox extends JTextField {
 		if(this.getText().length() <= 0)
 			return result;
 		
-		List<String> stringList = Arrays.asList(this.getText().split(","));
-		Iterator<String> iter = stringList.iterator();
-		while(iter.hasNext())
-			result.add(iter.next().charAt(0));
+		String focusString = this.getText();
+		
+		for(int i = 0; i < focusString.length(); i++) {
+			result.add(focusString.charAt(i));
+		}
 		
 		return result;
 	}
