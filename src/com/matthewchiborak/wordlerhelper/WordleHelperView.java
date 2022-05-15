@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 public class WordleHelperView extends JFrame implements ActionListener {
@@ -47,16 +48,22 @@ public class WordleHelperView extends JFrame implements ActionListener {
 		goButton.addActionListener(this);
 		c.add(goButton);
 		
-		whiteBox = new ConditionTextBox();
-		whiteBox.setLocation(420, 15);
-		c.add(whiteBox);
+		blackListLabel = new JLabel("Black List:");
+		blackListLabel.setSize(420, 10);
+		blackListLabel.setLocation(420, 10);
+		c.add(blackListLabel);
 		
 		blackBox = new ConditionTextBox();
-		blackBox.setLocation(420, 50);
+		blackBox.setLocation(420, 25);
 		c.add(blackBox);
 		
+		whiteListLabel = new JLabel("Yellow List (Pos then letter):");
+		whiteListLabel.setSize(420, 10);
+		whiteListLabel.setLocation(420, 55);
+		c.add(whiteListLabel);
+		
 		posBlackBox = new ConditionalPositionTextBox();
-		posBlackBox.setLocation(420, 85);
+		posBlackBox.setLocation(420, 70);
 		c.add(posBlackBox);
 		
 		optionsBox = new JTextArea();
@@ -75,9 +82,10 @@ public class WordleHelperView extends JFrame implements ActionListener {
 	private LetterBox letter5;
 	private JButton goButton;
 	private JTextArea optionsBox;
-	private ConditionTextBox whiteBox;
 	private ConditionTextBox blackBox;
 	private ConditionalPositionTextBox posBlackBox;
+	private JLabel blackListLabel;
+	private JLabel whiteListLabel;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -99,8 +107,7 @@ public class WordleHelperView extends JFrame implements ActionListener {
 						letter2.getLetter(), 
 						letter3.getLetter(), 
 						letter4.getLetter(), 
-						letter5.getLetter(),
-						whiteBox.getList()
+						letter5.getLetter()
 						)
 					);
 		}catch(Exception e1) {

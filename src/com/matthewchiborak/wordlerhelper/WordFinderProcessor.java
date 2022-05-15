@@ -23,9 +23,37 @@ public class WordFinderProcessor {
 		this.blackListPos3 = blackListPos3;
 		this.blackListPos4 = blackListPos4;
 		this.blackListPos5 = blackListPos5;
+		
+		this.whiteList = new ArrayList<Character>();
+		
+		for(int i = 0; i < blackListPos1.size(); ++i)
+		{
+			if(!this.whiteList.contains(blackListPos1.get(i)))
+				this.whiteList.add(blackListPos1.get(i));
+		}
+		for(int i = 0; i < blackListPos2.size(); ++i)
+		{
+			if(!this.whiteList.contains(blackListPos2.get(i)))
+				this.whiteList.add(blackListPos2.get(i));
+		}
+		for(int i = 0; i < blackListPos3.size(); ++i)
+		{
+			if(!this.whiteList.contains(blackListPos3.get(i)))
+				this.whiteList.add(blackListPos3.get(i));
+		}
+		for(int i = 0; i < blackListPos4.size(); ++i)
+		{
+			if(!this.whiteList.contains(blackListPos4.get(i)))
+				this.whiteList.add(blackListPos4.get(i));
+		}
+		for(int i = 0; i < blackListPos5.size(); ++i)
+		{
+			if(!this.whiteList.contains(blackListPos5.get(i)))
+				this.whiteList.add(blackListPos5.get(i));
+		}
 	}
 	
-	public String getResults(char l1, char l2, char l3, char l4, char l5, List<Character> whiteList){
+	public String getResults(char l1, char l2, char l3, char l4, char l5){
 		String result = "";
 	
 		List<String> wordsToTry = createWordsToTry(
@@ -178,4 +206,5 @@ public class WordFinderProcessor {
 	private List<Character> blackListPos3;
 	private List<Character> blackListPos4;
 	private List<Character> blackListPos5;
+	private List<Character> whiteList;
 }

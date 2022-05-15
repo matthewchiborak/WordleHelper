@@ -41,16 +41,11 @@ public class ConditionalPositionTextBox extends JTextField {
 	public void process() {
 		initLists();
 		
-		List<String> commaStringList = Arrays.asList(this.getText().split(","));
+		String letterList = this.getText();
 		
-		Iterator<String> commaIter = commaStringList.iterator();
-		while(commaIter.hasNext()) 
+		for(int i = 0; i < letterList.length(); i+=2)
 		{
-			String focusWord = commaIter.next();
-			
-			for(int i = 1; i < focusWord.length(); ++i) {
-				addToList(focusWord.charAt(0) - 48, focusWord.charAt(i));
-			}
+			addToList(letterList.charAt(i) - 48, letterList.charAt(i+1));
 		}
 	}
 		
